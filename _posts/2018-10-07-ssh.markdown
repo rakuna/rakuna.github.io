@@ -1,0 +1,82 @@
+---
+layout: post
+title: ssh
+date: '2018-10-07 03:36:45'
+tags:
+- aws
+- hosting
+---
+
+One of the unique features of [Amazon Lightsail](https://aws.amazon.com/lightsail/features/) is its [browser-based SSH client](https://lightsail.aws.amazon.com/ls/docs/en/articles/lightsail-how-to-connect-to-your-instance-virtual-private-server), which makes it very simple to get a remote [ssh](https://en.wikipedia.org/wiki/Secure_Shell) connection to our server.
+
+This browser-based client has been serving me very well. However there is an undesirable aspect, which is that the client will _time-out_ if not used for a few minutes.
+
+This was enough of a push for me to install a proper terminal.  
+Which has taken the form of installing [Ubuntu](https://en.wikipedia.org/wiki/Ubuntu) (a distribution of [GNU](https://en.wikipedia.org/wiki/GNU)/[Linux](https://en.wikipedia.org/wiki/Linux)) onto my laptop and utilising the default terminal.
+
+Now it is simply a matter of configuring the Ubuntu terminal to access the Lightsail server.
+
+Lighsail creates a [default ssh key](https://lightsail.aws.amazon.com/ls/webapp/account/keys) for each region, which is what we'll use, at least to begin with.  
+For Sydney this is called: `LightsailDefaultPrivateKey-ap-southeast-2.pem`
+
+Download the key file (.pem) and place it in your `~/.ssh/` (home ssh) folder.
+
+Before we can use the keyfile we need to restrict the permissions as ssh requires restricted access to keyfiles.
+
+1. Restrict the permissions over the key:
+
+    $ chmod 600 ~/.ssh/[keyfile]
+
+1. Test access to our server using our terminal:
+
+    $ ssh -i ~/.ssh/[keyfile] [user]@[public ip]
+
+Note: we can use our website address (e.g. libreengineer.com) instead of our [public ip].
+
+This should connect us to our server.  
+However, this is a lot to remember and type.  
+Instead lets setup an _alias_, to simplify the connection process.
+
+Our alias will be stored in an ssh configuration file.  
+3. Create a configuration file:
+
+    $ touch ~/.ssh/config
+
+1. Open the configuration file and add an alias:
+
+    $ nano ~/.ssh/config
+    Host [alias]
+    HostName [public ip]
+    User [user]
+    IdentityFile ~/.ssh/[keyfile]
+
+1. Test access to our server using our alias:
+
+    $ ssh alias
+
+This is a simpler method of connecting to our server.  
+However, we've relied on the Lightsail default key.  
+Another option is to create a private ssh key (just for our computer) and to use that for all ssh connections by default.  
+[Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-1804) provide a nice guide on how to achieve this.  
+6. Create the local keyfile
+
+    $ ssh-keygen
+
+1. Add our public key `id_rsa.pub` to our server's authorised keys file:
+
+    $ cat ~/.ssh/id_rsa.pub | ssh [alias] "mkdir -p ~/.ssh && touch ~/.ssh/authorized_keys && chmod -R go= ~/.ssh && cat >> ~/.ssh/authorized_keys"
+
+1. Now delete the Lightsail default key, and remove it's reference from the alias file
+
+    $ rm ~/.ssh/[keyfile]
+    $ nano ~/.ssh/config
+    Host [alias]
+    HostName [public ip]
+    User [user]
+
+1. Test access to our server using our alias and local keyfile
+
+    ssh [alias]
+
+We have now configured our terminal and Lightsail server to be able to connect via a private key that is unique to our computer.
+

@@ -1,0 +1,86 @@
+---
+layout: post
+title: Email server
+date: '2019-03-17 00:20:04'
+tags:
+- aws
+- hosting
+---
+
+ **TL;DR** why and how to setup a mail-server
+
+# Why setup a server
+
+If you're like me you've never put much thought into your email, and you simply use a free provider.  
+I see three main reasons to take an alternative approach
+
+1. Security: Email is the backup for every other online account, and this should be in your control as much as possible.
+2. Privacy: Everything sent and received on a free provider can be read and (generally) used to target advertisements to you
+3. Customisation: With an alternative approach you can have your own address ([tom@libreengineer.com](mailto:tom@libreengineer.com) instead of [tom@genericprovider.com](mailto:tom@genericprovider.com))
+
+# The server
+
+Our mail server has to run somewhere.  
+In an ideal (privacy) world, this would be on self managed hardware.  
+However as this is the first time I've tried to put together a mail server I'd like to separate the potential software problems from the potential hardware problems.  
+I achieved this with an Amazon Web Services (AWS) 1GB Lightsail instance.  
+Debian was choses as the operating sysem as the tutorial I use recommends it. It also fits nicely with my desired for long-term stability, and free and open source software.
+
+# The software
+
+Now that the server is setup we need to install some software on it.  
+But before we get there, it is probably helpful to understand the types of e-mail software and the differences.  
+The main terms to understand are:
+
+- Mail transfer agent ([MTA](https://en.wikipedia.org/wiki/Message_transfer_agent)) which implements the simple mail transfer protocol ([SMTP](https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol))
+- Mail delivery agent ([MDA](https://en.wikipedia.org/wiki/Mail_delivery_agent)) which implement either the internet message access protocol ([IMAP](https://en.wikipedia.org/wiki/Internet_Message_Access_Protocol)) or post office protocol ([POP](https://en.wikipedia.org/wiki/Post_Office_Protocol))
+  - The key difference being that POP removes emails from the server once delivered and IMAP retains them, which makes IMAP more suited to access from multiple devices.
+- Mail user agent ([MUA](https://en.wikipedia.org/wiki/Email_client)), also known as an email client
+
+Thinking about the steps a physical letter takes to be sent:
+
+1. which is written and posted into a physical postbox
+2. collected from the letterbox by the postal service
+3. the postcode is read and the letter is delivered to the appropriate post-office
+4. the address is read and the letter is delivered to the recipient's letter box
+5. the recipient collects the letter from their letter box
+6. the recipient reads the letter
+
+For an email these steps are handling by different pieces of software, considering the sending of an email to _[tom@libreengineer.com](mailto:tom@libreengineer.com)_.
+
+- MUA (email client)
+  - handles steps 1, 5
+  - The end-user facing aspects of email
+  - writing _[tom@libreengineer.com](mailto:tom@libreengineer.com)_ into the _To_ field
+  - accessing the inbox to receive an email
+- MTA
+  - handles steps 2, 3
+  - The sending of emails between email servers
+  - finding the IP address of _libreengineer.com_'s mail server and sending the email there
+- MDA
+  - handles step 4
+  - The delivering of email from the server to an individuals inbox
+  - finding _tom_'s email location on the server and placing the email there.
+
+In our case we will be using
+
+- [Postfix](http://www.postfix.org/)
+  - running an SMTP server as the MTA
+- [Dovecot](https://dovecot.org/)
+  - running an IMAP server as the MDA
+- [rspamd](https://www.rspamd.com/)
+  - To provide a layer of spam protection.
+
+# Setting it all up
+
+I followed the excellent guide called 'ISPmail' put together by Christoph Haas. Which can be found at: [https://workaround.org/ispmail](https://workaround.org/ispmail).
+
+# Completing the picture
+
+We now have a fully functioning mail server, which we can access via a webmail interface. To complete the picture we can also look at email clients (MUAs) for our various platforms.  
+In my case these are Android, where I use [K-9](https://k9mail.github.io/) and Ubuntu where I use [Evolution](https://wiki.gnome.org/Apps/Evolution/) [Geary](https://wiki.gnome.org/Apps/Geary/).
+
+# Final thoughts
+
+If you found this useful I'd be glad to hear from you at [tom@libreengineer.com](mailto:tom@libreengineer.com)
+
