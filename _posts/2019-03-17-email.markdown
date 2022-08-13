@@ -82,5 +82,5 @@ In my case these are Android, where I use [K-9](https://k9mail.github.io/) and U
 
 # Final thoughts
 
-If you found this useful I'd be glad to hear from you at [tom@libreengineer.com](mailto:tom@libreengineer.com)
+If you found this useful I'd be glad to hear from you at [tom@mccleery.io](mailto:tom@mccleery.io)
 
