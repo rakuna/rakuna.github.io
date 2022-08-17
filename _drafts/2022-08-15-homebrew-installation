@@ -1,0 +1,117 @@
+---
+layout: post
+title:  "Troubleshooting a Homebrew installation"
+date:   2022-08-15 05:50:00 +0800
+categories: jekyll homebrew
+---
+
+As part of installing Homebrew a few errors came up when running:
+brew doctor
+
+# Post install tidy-up
+==> Next steps:
+- Run these two commands in your terminal to add Homebrew to your PATH:
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/tom/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+- Run brew help to get started
+- Further documentation:
+    https://docs.brew.sh
+
+# Error when intalling Ruby
+>>> Regenerating ./configure script ...
+autoreconf: error: 'configure.ac' is required
+!!! Configuration of ruby 3.1.2 failed!
+
+# Error when running brew doctor
+
+Please note that these warnings are just used to help the Homebrew maintainers
+with debugging if you file an issue. If everything you use Homebrew for is
+working fine: please don't worry or file an issue; just ignore this. Thanks!
+
+Warning: Your Command Line Tools are too outdated.
+Update them from Software Update in System Preferences or run:
+  softwareupdate --all --install --force
+
+If that doesn't show you any updates, run:
+  sudo rm -rf /Library/Developer/CommandLineTools
+  sudo xcode-select --install
+
+Alternatively, manually download them from:
+  https://developer.apple.com/download/all/.
+You should download the Command Line Tools for Xcode 13.4.
+
+
+Warning: A newer Command Line Tools release is available.
+Update them from Software Update in System Preferences or run:
+  softwareupdate --all --install --force
+
+If that doesn't show you any updates, run:
+  sudo rm -rf /Library/Developer/CommandLineTools
+  sudo xcode-select --install
+
+Alternatively, manually download them from:
+  https://developer.apple.com/download/all/.
+You should download the Command Line Tools for Xcode 13.4.
+
+
+Warning: Unbrewed dylibs were found in /usr/local/lib.
+If you didn't put them there on purpose they could cause problems when
+building Homebrew formulae, and may need to be deleted.
+
+Unexpected dylibs:
+  /usr/local/lib/libtcl8.6.dylib
+  /usr/local/lib/libtk8.6.dylib
+
+Warning: Unbrewed header files were found in /usr/local/include.
+If you didn't put them there on purpose they could cause problems when
+building Homebrew formulae, and may need to be deleted.
+
+Unexpected header files:
+  /usr/local/include/fakemysql.h
+  /usr/local/include/fakepq.h
+  /usr/local/include/fakesql.h
+  /usr/local/include/itcl.h
+  /usr/local/include/itcl2TclOO.h
+  /usr/local/include/itclDecls.h
+  /usr/local/include/itclInt.h
+  /usr/local/include/itclIntDecls.h
+  /usr/local/include/itclMigrate2TclCore.h
+  /usr/local/include/itclTclIntStubsFcn.h
+  /usr/local/include/mysqlStubs.h
+  /usr/local/include/odbcStubs.h
+  /usr/local/include/pqStubs.h
+  /usr/local/include/tcl.h
+  /usr/local/include/tclDecls.h
+  /usr/local/include/tclOO.h
+  /usr/local/include/tclOODecls.h
+  /usr/local/include/tclPlatDecls.h
+  /usr/local/include/tclThread.h
+  /usr/local/include/tclTomMath.h
+  /usr/local/include/tclTomMathDecls.h
+  /usr/local/include/tdbc.h
+  /usr/local/include/tdbcDecls.h
+  /usr/local/include/tdbcInt.h
+  /usr/local/include/tk.h
+  /usr/local/include/tkDecls.h
+  /usr/local/include/tkPlatDecls.h
+
+Warning: Unbrewed '.pc' files were found in /usr/local/lib/pkgconfig.
+If you didn't put them there on purpose they could cause problems when
+building Homebrew formulae, and may need to be deleted.
+
+Unexpected '.pc' files:
+  /usr/local/lib/pkgconfig/tcl.pc
+  /usr/local/lib/pkgconfig/tk.pc
+
+Warning: Unbrewed static libraries were found in /usr/local/lib.
+If you didn't put them there on purpose they could cause problems when
+building Homebrew formulae, and may need to be deleted.
+
+Unexpected static libraries:
+  /usr/local/lib/libtclstub8.6.a
+  /usr/local/lib/libtkstub8.6.a
+
+
+Resolved with:
+cd ......
+sudo rm......
