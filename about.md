@@ -8,28 +8,29 @@ permalink: /about/
 # Welcome to [LibreEngineer](https://blog.mccleery.io)
 A site for discussing thoughts on books, technology and everything in between.
 
+A [Jekyll](https://jekyllrb.com/) blog hosted on [github-pages][github-pages].
+
 ~~A [Ghost][ghost] blog hosted on [AWS Lightsail][lightsail]~~.
 
-A [Jekyll](https://jekyllrb.com/) blog hosted on [github-pages][github-pages].
 
 # Projects (and products) I enjoy
 
 - Web browsing
-  - ~~[Firefox](https://www.mozilla.org/en-US/firefox/)~~
   - [Safari][safari]
+  - ~~[Firefox](https://www.mozilla.org/en-US/firefox/)~~
 - Maps 
   - [Open Street Map](https://www.openstreetmap.org/)
 - Blogging
-  - ~~[Ghost](https://ghost.org/)~~
   - [Jekyll][jekyll]
+  - ~~[Ghost](https://ghost.org/)~~
 - Analytics
-  - [Fathom Analytics](https://usefathom.com/) (not currently in use though)
+  - ~~[Fathom Analytics](https://usefathom.com/)~~ 
 - Email
+  - Managed email
+    - [fastmail][fastmail] ([referral link](https://ref.fm/u26707320))
   - ~~Self-hosted email~~
     - ~~[Postfix](http://www.postfix.org/)~~
     - ~~[Dovecot](https://www.dovecot.org/)~~
-  - Managed email
-    - [fastmail][fastmail] ([referral link](https://ref.fm/u26707320))
 
 # Causes I believe in
 
